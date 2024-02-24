@@ -1,12 +1,16 @@
 import * as express from 'express';
 import configureBot from "./bot";
 import {connectDB} from "./mongo/connection";
+const menuRouter = require("../src/routers/menu")
+const orderRouter = require("../src/routers/order")
 import * as cors from 'cors';
 const app = express();
+
 app.use(cors());
 app.use(express.json());
 
-
+app.use(menuRouter);
+app.use(orderRouter);
 connectDB().then(() => console.log("Connected to database!"))
 
 export const chatBot = configureBot();
